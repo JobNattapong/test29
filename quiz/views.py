@@ -21,7 +21,7 @@ def answer(request, question_id):
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
+        # Redisplay the question answer form.
         return render(request, 'quiz/detail.html', {
             'question': question,
             'error_message': "You didn't select a choice.",
