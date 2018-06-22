@@ -10,3 +10,6 @@ __pycache__
 db.sqlite3
 __pycache__
 *.pyc
+geckodriver.log
+__pycache__
+*.pyc
