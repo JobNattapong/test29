@@ -3,12 +3,13 @@ from . import views
 
 app_name = 'quiz'
 urlpatterns = [
-    # ex: /quiz/
+    # ex: /
     path('', views.index, name='index'),
-    # ex: /quiz/5/
+    path('add_question', views.add_question, name='add_question'),
+    # ex: /5/
     path('<int:question_id>/', views.detail, name='detail'),
-    # ex: /quiz/5/results/
+    # ex: /5/results/
     path('<int:question_id>/results/', views.results, name='results'),
-    # ex: /quiz/5/vote/
+    # ex: /5/vote/
     path('<int:question_id>/answer/', views.answer, name='answer'),
 ]

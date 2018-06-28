@@ -1,12 +1,19 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render,redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from .models import Choice, Question
+from .models import Question, Choice
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'quiz/index.html', context)
+    question_text = Question.objects.all
+    return render(request, 'quiz/index.html', {'questions': question_text})
+
+def add_question(request):
+    q = Question(question_text = request.POST['question_input'])
+    q.save()
+    q.choice_set.create(choice_text = request.POST['name_choice1'], answer = request.POST['choice1'], votes = 0)
+    q.choice_set.create(choice_text = request.POST['name_choice2'], answer = request.POST['choice2'], votes = 0)
+    question_text = Question.objects.all
+    return redirect('/')
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

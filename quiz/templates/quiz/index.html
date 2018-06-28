@@ -1,15 +1,26 @@
 <html>
   <title>Quiz</title>
   <body>
-<h1>Question</h1>
-{% if latest_question_list %}
-  <ul>
-    {% for question in latest_question_list %}
-      <li><a href="{% url 'quiz:detail' question.id %}" id="detail_question">{{ question.question_text }}</a></li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No quiz are available.</p>
-{% endif %}
+    <h1>Add Question Add Choice And Fix Answer</h1>
+    <h4>{{ error_message }}</h4>
+    <form method="POST" action="/add_question">
+          <input name="question_input" placeholder="Add new question" /><br><br>
+          <input name="name_choice1" placeholder="Add new choice1" />
+          <input type="radio" name="choice1" value="True"/>True
+          <input type="radio" name="choice1" value="False"/>False<br>
+          <input name="name_choice2" placeholder="Add new choice2" />
+          <input type="radio" name="choice2" value="True"/>True
+          <input type="radio" name="choice2" value="False"/>False<br><br>
+    {% csrf_token %}
+    <input id="id_sub" type="submit" value="Submit">
+    </form>
+    <table>
+      {% for question in questions  %}
+          <tr>
+            <td>{{ forloop.counter }}. <a href="{% url 'quiz:detail' question.id %}">{{ question.question_text }}</a></td>
+          </tr>
+      {% endfor %}
+    </table>
+
   </body>
 </html>
